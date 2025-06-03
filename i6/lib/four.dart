@@ -11,6 +11,7 @@ class Page4 extends StatefulWidget {
 }
 
 class _Page4State extends State<Page4> {
+  bool test = true;
   List<TestList> d1 = [];
   int obbal = 0;
 
@@ -61,51 +62,71 @@ class _Page4State extends State<Page4> {
       key: UniqueKey(),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
-        final removedItem = d1[e];
-        final value = int.tryParse(removedItem.qarzi ?? '0') ?? 0;
-
-        setState(() {
-          obbal -= value;
-          d1.removeAt(e);
-        });
-
+        setState(() => d1.removeAt(e));
         saveList();
-        saveObbal();
       },
-
-      child: Container(
-        height: 80,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        margin: EdgeInsets.only(top: 10, bottom: 10),
-        decoration: BoxDecoration(
-          color: Colors.black87,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "${d1[e].name}",
-              style: TextStyle(color: Colors.green, fontSize: 20),
-            ),
-            Text("${d1[e].qarzi}", style: TextStyle(color: Colors.green)),
-            Row(
-              children: [
-                Text(
-                  "${d1[e].datelist}   ",
-                  style: TextStyle(color: Colors.green),
-                ),
-                Text(
-                  "${d1[e].timelist}",
-                  style: TextStyle(color: Colors.white),
+      child: Stack(
+        children: [
+          Container(
+            height: 80,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.black87,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 2,
+                  color: Colors.grey,
+                  offset: Offset(0, 0),
                 ),
               ],
             ),
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${d1[e].name}",
+
+                  style: TextStyle(
+                    decoration:
+                        test ? TextDecoration.none : TextDecoration.lineThrough,
+                    color: Colors.green,
+                    fontSize: 20,
+                  ),
+                ),
+                Text("${d1[e].qarzi}", style: TextStyle(color: Colors.green)),
+                Row(
+                  children: [
+                    Text(
+                      "${d1[e].datelist}   ",
+                      style: TextStyle(color: Colors.green),
+                    ),
+                    Text(
+                      "${d1[e].timelist}",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 30,
+            right: 10,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  test = !test;
+                });
+              },
+              icon:
+                  test
+                      ? Icon(Icons.check_box_outline_blank, color: Colors.white)
+                      : Icon(Icons.check_box_outlined, color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }

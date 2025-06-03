@@ -27,14 +27,16 @@ class HomeWithTabs extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black,
           centerTitle: true,
-          title: Text("Todays Tasks"),
+          title: Text("Today's Tasks", style: TextStyle(color: Colors.green)),
           bottom: const TabBar(
-            indicatorColor: Colors.greenAccent,
+            indicatorColor: Colors.green,
+            labelColor: Colors.green,
+            unselectedLabelColor: Colors.green,
             tabs: [
-              Tab(text: "Главная"),
-              Tab(text: "Задачи"),
+              Tab(text: "Personal"),
+              Tab(text: "Default"),
               Tab(text: "Study"),
-              Tab(text: "Настройки"),
+              Tab(text: "Work"),
             ],
           ),
         ),
